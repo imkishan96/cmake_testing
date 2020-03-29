@@ -4,7 +4,7 @@
 
 
 #include <librealsense2/rs.hpp> // Include RealSense Cross Platform API
-//#include "../../../examples/example.hpp" // Include short list of convenience functions for rendering
+#include <examples/example.hpp> // Include short list of convenience functions for rendering
 
 #include <pcl/point_types.h>
 #include <pcl/filters/passthrough.h>
@@ -70,6 +70,7 @@ pcl_ptr points_to_pcl(const rs2::points& points)
 float3 colors[] { { 0.8f, 0.1f, 0.3f }, 
                   { 0.1f, 0.9f, 0.5f },
                 };
+
 
 void show_pcl_cloud(pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud)
 {
