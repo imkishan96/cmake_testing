@@ -8,10 +8,16 @@ set(REALSENSE2_DLL_DIR "C:\\Program Files (x86)\\Intel RealSense SDK 2.0\\bin\\x
 include_directories(${REALSENSE2_INCLUDE_DIR})
 find_library(REALSENSE2_LIB realsense2 PATHS ${REALSENSE2_LIB_DIR})
 
-add_executable( main_cmaketest 
-                main_cmaketest.cpp)
+cmake_policy(SET CMP0074 NEW)
+find_package(PCL REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
-target_link_libraries(main_cmaketest ${REALSENSE2_LIB})
+add_executable( main_cmaketest main_cmaketest.cpp)
+
+target_link_libraries(main_cmaketest ${PCL_LIBRARIES} ${REALSENSE2_LIB})
+
 add_custom_command(TARGET main_cmaketest POST_BUILD        # Adds a post-build event to rs-getting-started
     COMMAND ${CMAKE_COMMAND} -E copy_if_different              # which executes "cmake - E copy_if_different..."
             "${REALSENSE2_DLL_DIR}realsense2.dll"                            # <--this is in-file
